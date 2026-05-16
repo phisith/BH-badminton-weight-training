@@ -39,13 +39,13 @@ export default function Session({ sessionKey, prefs, onFinish }) {
   const progressPct = (stepIndex / (steps.length - 1)) * 100;
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-4 pb-28">
       <div className="space-y-1.5">
-        <div className="flex items-center justify-between text-xs text-(--color-muted)">
+        <div className="flex items-center justify-between text-xs font-semibold text-(--color-muted)">
           <span>Step {stepIndex + 1} of {steps.length}</span>
           <span>{Math.round(progressPct)}%</span>
         </div>
-        <div className="h-1.5 rounded-full bg-(--color-surface-2) overflow-hidden">
+        <div className="h-2 rounded-full bg-(--color-surface-2) overflow-hidden">
           <div
             className="h-full rounded-full transition-[width] duration-300"
             style={{
@@ -72,14 +72,18 @@ export default function Session({ sessionKey, prefs, onFinish }) {
         )}
       </div>
 
-      <nav className="sticky bottom-0 grid grid-cols-[1fr_2fr] gap-2.5 pt-3 pb-[calc(env(safe-area-inset-bottom,0)+12px)] md:static md:py-3 md:bg-transparent"
-           style={{
-             backgroundImage: "linear-gradient(to top, var(--color-bg) 70%, transparent)"
-           }}>
-        <button className="btn-ghost" onClick={goPrev} disabled={stepIndex === 0}>Prev</button>
-        <button className="btn-primary" onClick={goNext}>
-          {stepIndex >= steps.length - 1 ? "Finish session" : "Next"}
-        </button>
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-20 px-4 md:px-8 pt-3 pb-[calc(env(safe-area-inset-bottom,0)+12px)]"
+        style={{
+          backgroundImage: "linear-gradient(to top, var(--color-bg) 65%, color-mix(in srgb, var(--color-bg) 70%, transparent) 90%, transparent)"
+        }}
+      >
+        <div className="max-w-3xl mx-auto grid grid-cols-[1fr_2fr] gap-2.5">
+          <button className="btn-secondary" onClick={goPrev} disabled={stepIndex === 0}>Prev</button>
+          <button className="btn-primary" onClick={goNext}>
+            {stepIndex >= steps.length - 1 ? "Finish session" : "Next"}
+          </button>
+        </div>
       </nav>
     </section>
   );

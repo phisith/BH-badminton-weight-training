@@ -32,32 +32,32 @@ export default function App() {
   return (
     <>
       <header
-        className="sticky top-0 z-10 grid grid-cols-[44px_1fr_44px] items-center gap-2 px-3 border-b border-(--color-border) backdrop-blur"
+        className="sticky top-0 z-10 grid grid-cols-[44px_1fr_44px] items-center gap-2 px-3 border-b border-(--color-border) backdrop-blur-md"
         style={{
           paddingTop: "calc(env(safe-area-inset-top, 0) + 10px)",
           paddingBottom: 10,
-          background: "color-mix(in srgb, var(--color-bg) 80%, transparent)"
+          background: "rgba(253, 248, 243, 0.78)"
         }}
       >
         <button
           onClick={handleBack}
           aria-label="Back"
-          className="h-11 w-11 inline-flex items-center justify-center rounded-xl text-xl hover:bg-(--color-surface-2)"
+          className="h-11 w-11 inline-flex items-center justify-center rounded-full text-xl text-(--color-text) hover:bg-(--color-surface-2)"
           style={{ visibility: view === "home" ? "hidden" : "visible" }}
         >
           ←
         </button>
-        <h1 className="text-base font-semibold text-center truncate">{title}</h1>
+        <h1 className="text-base font-bold text-center truncate tracking-tight">{title}</h1>
         <button
           onClick={() => setSettingsOpen(true)}
           aria-label="Settings"
-          className="h-11 w-11 inline-flex items-center justify-center rounded-xl text-xl hover:bg-(--color-surface-2)"
+          className="h-11 w-11 inline-flex items-center justify-center rounded-full text-xl text-(--color-text) hover:bg-(--color-surface-2)"
         >
           ⚙
         </button>
       </header>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto px-4 py-5 md:px-8 md:py-8">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 py-3 md:px-8 md:py-8">
         {view === "home" && <Home onPick={startSession} />}
         {view === "session" && (
           <Session sessionKey={sessionKey} prefs={prefs} onFinish={finishSession} />

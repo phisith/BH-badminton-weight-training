@@ -1,21 +1,21 @@
 export default function Summary({ stats, onHome }) {
   return (
-    <section className="text-center py-10 space-y-4">
-      <div className="mx-auto h-20 w-20 rounded-full bg-gradient-to-br from-(--color-accent) to-(--color-accent-2) flex items-center justify-center text-4xl shadow-[0_0_40px_rgba(91,140,255,0.5)]">
+    <section className="text-center py-10 space-y-5">
+      <div className="mx-auto h-24 w-24 rounded-full bg-gradient-to-br from-(--color-accent) via-(--color-yellow) to-(--color-accent-2) flex items-center justify-center text-5xl text-white shadow-[0_18px_42px_-12px_rgba(255,138,138,0.55)]">
         ✓
       </div>
-      <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Session complete</h2>
+      <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Nice work!</h2>
       {stats && (
-        <div className="card max-w-md mx-auto p-5 space-y-2">
-          <div className="font-semibold">{stats.title}</div>
-          <div className="grid grid-cols-2 gap-2 text-center">
-            <div className="rounded-xl bg-(--color-surface-2) p-3">
-              <div className="text-2xl font-extrabold text-(--color-accent)">{stats.totalSets}</div>
-              <div className="text-xs text-(--color-muted) uppercase tracking-wider">sets</div>
+        <div className="card max-w-md mx-auto p-6 space-y-4">
+          <div className="font-bold text-(--color-text)">{stats.title}</div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl bg-[#fff0ec] p-4">
+              <div className="text-3xl font-extrabold text-(--color-accent-deep)">{stats.totalSets}</div>
+              <div className="text-[11px] font-semibold text-(--color-muted) uppercase tracking-wider mt-1">sets</div>
             </div>
-            <div className="rounded-xl bg-(--color-surface-2) p-3">
-              <div className="text-2xl font-extrabold text-(--color-accent-2)">{stats.mins}</div>
-              <div className="text-xs text-(--color-muted) uppercase tracking-wider">minutes</div>
+            <div className="rounded-2xl bg-[#e7f7f0] p-4">
+              <div className="text-3xl font-extrabold text-[#3aa07e]">{stats.mins}</div>
+              <div className="text-[11px] font-semibold text-(--color-muted) uppercase tracking-wider mt-1">minutes</div>
             </div>
           </div>
         </div>

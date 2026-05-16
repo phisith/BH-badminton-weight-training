@@ -1,20 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4f8cff"/>
-      <stop offset="100%" stop-color="#22d3a0"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd0c4"/>
+      <stop offset="100%" stop-color="#ffe6a8"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff8a8a"/>
+      <stop offset="100%" stop-color="#7dd6b8"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="96" fill="#0b1220"/>
-  <circle cx="170" cy="170" r="70" fill="none" stroke="url(#g)" stroke-width="18"/>
-  <line x1="218" y1="218" x2="380" y2="380" stroke="url(#g)" stroke-width="18" stroke-linecap="round"/>
-  <rect x="360" y="360" width="60" height="60" rx="12" transform="rotate(45 390 390)" fill="url(#g)"/>
-  <g fill="url(#g)">
-    <circle cx="140" cy="150" r="6"/>
-    <circle cx="170" cy="130" r="6"/>
-    <circle cx="200" cy="150" r="6"/>
-    <circle cx="140" cy="190" r="6"/>
-    <circle cx="170" cy="210" r="6"/>
-    <circle cx="200" cy="190" r="6"/>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- racket head -->
+  <ellipse cx="180" cy="180" rx="84" ry="92" fill="none" stroke="url(#ink)" stroke-width="20" transform="rotate(-30 180 180)"/>
+  <!-- strings (light) -->
+  <g stroke="#ffffff" stroke-width="4" opacity="0.85" transform="rotate(-30 180 180)">
+    <line x1="120" y1="180" x2="240" y2="180"/>
+    <line x1="120" y1="155" x2="240" y2="155"/>
+    <line x1="120" y1="205" x2="240" y2="205"/>
+    <line x1="180" y1="100" x2="180" y2="260"/>
+    <line x1="155" y1="100" x2="155" y2="260"/>
+    <line x1="205" y1="100" x2="205" y2="260"/>
+  </g>
+  <!-- handle -->
+  <line x1="232" y1="232" x2="380" y2="380" stroke="url(#ink)" stroke-width="22" stroke-linecap="round"/>
+  <!-- shuttle -->
+  <g transform="translate(380 380) rotate(45)">
+    <path d="M 0 -18 L 36 0 L 0 18 L -10 0 Z" fill="#ff8a8a"/>
+    <circle r="9" fill="#ffffff" stroke="#ff8a8a" stroke-width="4"/>
   </g>
 </svg>

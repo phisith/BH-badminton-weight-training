@@ -20,8 +20,8 @@ export default defineConfig({
         scope: "./",
         display: "standalone",
         orientation: "portrait",
-        background_color: "#0b1220",
-        theme_color: "#0b1220",
+        background_color: "#fdf8f3",
+        theme_color: "#fdf8f3",
         icons: [
           { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }
         ]
