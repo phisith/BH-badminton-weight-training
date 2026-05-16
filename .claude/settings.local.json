@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "Bash(npm ls *)"
+      "Bash(npm ls *)",
+      "Read(//Users/beckham-nimble/Documents/**)",
+      "Bash(mv BH-badminton-weight-training weight-training-for-birdie)"
     ]
   }
 }
