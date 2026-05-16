@@ -1,4 +1,4 @@
-# BWF Badminton Training PWA
+# Weight Training for Birdie
 
 React + Vite PWA for stepping through your Wednesday (Upper & Core) and Saturday (Legs & Hardware) workouts with timers, rest tracking, and per-exercise YouTube tutorial videos.
 

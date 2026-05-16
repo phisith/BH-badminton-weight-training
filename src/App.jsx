@@ -25,7 +25,7 @@ export default function App() {
   };
 
   const title =
-    view === "home" ? "BWF Training" :
+    view === "home" ? "Weight Training for Birdie" :
     view === "session" ? SESSIONS[sessionKey].title :
     "Complete";
 

@@ -13,8 +13,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icon.svg"],
       manifest: {
-        name: "BWF Badminton Training",
-        short_name: "BWF Training",
+        name: "Weight Training for Birdie",
+        short_name: "Birdie Training",
         description: "Step-by-step badminton strength and power workouts with timers and tutorial videos.",
         start_url: "./",
         scope: "./",
