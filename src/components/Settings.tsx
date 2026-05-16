@@ -1,7 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type Dispatch, type SetStateAction } from "react";
+import type { Prefs } from "../hooks";
 
-export default function Settings({ open, prefs, setPrefs, onClose }) {
-  const dlgRef = useRef(null);
+type SettingsProps = {
+  open: boolean;
+  prefs: Prefs;
+  setPrefs: Dispatch<SetStateAction<Prefs>>;
+  onClose: () => void;
+};
+
+export default function Settings({ open, prefs, setPrefs, onClose }: SettingsProps) {
+  const dlgRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const dlg = dlgRef.current;
@@ -54,7 +62,15 @@ export default function Settings({ open, prefs, setPrefs, onClose }) {
   );
 }
 
-function Segmented({ value, onChange, options }) {
+type SegmentedOption<T> = { value: T; label: string };
+
+type SegmentedProps<T> = {
+  value: T;
+  onChange: (v: T) => void;
+  options: SegmentedOption<T>[];
+};
+
+function Segmented<T extends string | number>({ value, onChange, options }: SegmentedProps<T>) {
   return (
     <div
       role="radiogroup"
@@ -65,7 +81,7 @@ function Segmented({ value, onChange, options }) {
         const active = opt.value === value;
         return (
           <button
-            key={opt.value}
+            key={String(opt.value)}
             type="button"
             role="radio"
             aria-checked={active}
@@ -88,7 +104,9 @@ function Segmented({ value, onChange, options }) {
   );
 }
 
-function Switch({ checked, onChange }) {
+type SwitchProps = { checked: boolean; onChange: (v: boolean) => void };
+
+function Switch({ checked, onChange }: SwitchProps) {
   return (
     <button
       type="button"

@@ -1,4 +1,8 @@
-export default function Home({ onPick }) {
+import type { SessionKey } from "../data";
+
+type HomeProps = { onPick: (key: SessionKey) => void };
+
+export default function Home({ onPick }: HomeProps) {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between gap-2">
@@ -59,7 +63,9 @@ export default function Home({ onPick }) {
   );
 }
 
-const TINTS = {
+type Tint = "coral" | "mint";
+
+const TINTS: Record<Tint, { pill: string; glow: string; accent: string }> = {
   coral: {
     pill: "bg-[#fff0ec] text-[#f06262]",
     glow: "from-[#ffd4cc] to-[#ffe6a8]",
@@ -72,7 +78,15 @@ const TINTS = {
   }
 };
 
-function SessionCard({ day, name, meta, tint, onClick }) {
+type SessionCardProps = {
+  day: string;
+  name: string;
+  meta: string;
+  tint: Tint;
+  onClick: () => void;
+};
+
+function SessionCard({ day, name, meta, tint, onClick }: SessionCardProps) {
   const t = TINTS[tint];
   return (
     <button

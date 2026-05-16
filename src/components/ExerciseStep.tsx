@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { fmtTime, extractYouTubeId } from "../data.js";
-import { useCountdown, useCustomVideo, beep } from "../hooks.js";
+import { fmtTime, extractYouTubeId, type ExerciseStep as ExerciseStepType } from "../data";
+import { useCountdown, useCustomVideo, beep, type Prefs } from "../hooks";
 
-export default function ExerciseStep({ step, prefs, ordinal, onComplete }) {
+type ExerciseStepProps = {
+  step: ExerciseStepType;
+  prefs: Prefs;
+  ordinal: string;
+  onComplete: () => void;
+};
+
+export default function ExerciseStep({ step, prefs, ordinal, onComplete }: ExerciseStepProps) {
   const [currentSet, setCurrentSet] = useState(1);
   const [inRest, setInRest] = useState(false);
   const [customId, setCustomId] = useCustomVideo(step.name);
@@ -129,7 +136,14 @@ export default function ExerciseStep({ step, prefs, ordinal, onComplete }) {
   );
 }
 
-function ExerciseTimer({ seconds, eachSide, onDone, soundOn }) {
+type ExerciseTimerProps = {
+  seconds: number;
+  eachSide?: boolean;
+  onDone: () => void;
+  soundOn: boolean;
+};
+
+function ExerciseTimer({ seconds, eachSide, onDone, soundOn }: ExerciseTimerProps) {
   const { remaining, running, start, pause, reset } = useCountdown(seconds, {
     onComplete: () => { beep(soundOn); onDone(); }
   });
@@ -165,7 +179,16 @@ function ExerciseTimer({ seconds, eachSide, onDone, soundOn }) {
   );
 }
 
-function RestView({ exerciseName, nextSet, totalSets, seconds, soundOn, onDone }) {
+type RestViewProps = {
+  exerciseName: string;
+  nextSet: number;
+  totalSets: number;
+  seconds: number;
+  soundOn: boolean;
+  onDone: () => void;
+};
+
+function RestView({ exerciseName, nextSet, totalSets, seconds, soundOn, onDone }: RestViewProps) {
   const { remaining, add } = useCountdown(seconds, {
     autoStart: true,
     onComplete: () => { beep(soundOn); onDone(); }

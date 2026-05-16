@@ -1,7 +1,9 @@
-import { fmtTime } from "../data.js";
-import { useCountdown, beep } from "../hooks.js";
+import { fmtTime, type TimedStep as TimedStepType } from "../data";
+import { useCountdown, beep, type Prefs } from "../hooks";
 
-export default function TimedStep({ step, prefs }) {
+type TimedStepProps = { step: TimedStepType; prefs: Prefs };
+
+export default function TimedStep({ step, prefs }: TimedStepProps) {
   const { remaining, running, start, pause, reset } = useCountdown(step.duration, {
     onComplete: () => beep(prefs.sound)
   });

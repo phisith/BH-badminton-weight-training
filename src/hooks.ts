@@ -1,6 +1,23 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, type Dispatch, type SetStateAction } from "react";
 
-export function useCountdown(seconds, { onComplete, autoStart = false } = {}) {
+type CountdownOptions = {
+  onComplete?: () => void;
+  autoStart?: boolean;
+};
+
+export type Countdown = {
+  remaining: number;
+  running: boolean;
+  start: () => void;
+  pause: () => void;
+  reset: () => void;
+  add: (s: number) => void;
+};
+
+export function useCountdown(
+  seconds: number,
+  { onComplete, autoStart = false }: CountdownOptions = {}
+): Countdown {
   const [remaining, setRemaining] = useState(seconds);
   const [running, setRunning] = useState(autoStart);
   const onCompleteRef = useRef(onComplete);
@@ -15,7 +32,7 @@ export function useCountdown(seconds, { onComplete, autoStart = false } = {}) {
         if (r <= 1) {
           clearInterval(id);
           setRunning(false);
-          onCompleteRef.current && onCompleteRef.current();
+          onCompleteRef.current?.();
           return 0;
         }
         return r - 1;
@@ -27,16 +44,18 @@ export function useCountdown(seconds, { onComplete, autoStart = false } = {}) {
   const start = useCallback(() => setRunning(true), []);
   const pause = useCallback(() => setRunning(false), []);
   const reset = useCallback(() => { setRunning(false); setRemaining(seconds); }, [seconds]);
-  const add = useCallback((s) => setRemaining((r) => r + s), []);
+  const add = useCallback((s: number) => setRemaining((r) => r + s), []);
 
   return { remaining, running, start, pause, reset, add };
 }
 
-const PREFS_KEY = "bwf:prefs";
-const DEFAULT_PREFS = { rest: 90, sound: true };
+export type Prefs = { rest: number; sound: boolean };
 
-export function usePrefs() {
-  const [prefs, setPrefs] = useState(() => {
+const PREFS_KEY = "bwf:prefs";
+const DEFAULT_PREFS: Prefs = { rest: 90, sound: true };
+
+export function usePrefs(): [Prefs, Dispatch<SetStateAction<Prefs>>] {
+  const [prefs, setPrefs] = useState<Prefs>(() => {
     try {
       const raw = localStorage.getItem(PREFS_KEY);
       return raw ? { ...DEFAULT_PREFS, ...JSON.parse(raw) } : DEFAULT_PREFS;
@@ -48,11 +67,11 @@ export function usePrefs() {
   return [prefs, setPrefs];
 }
 
-export function useCustomVideo(name) {
+export function useCustomVideo(name: string): [string, (newId: string) => void] {
   const key = "bwf:vid:" + name;
-  const [id, setIdState] = useState(() => localStorage.getItem(key) || "");
+  const [id, setIdState] = useState<string>(() => localStorage.getItem(key) || "");
   useEffect(() => { setIdState(localStorage.getItem(key) || ""); }, [key]);
-  const setId = useCallback((newId) => {
+  const setId = useCallback((newId: string) => {
     if (newId) localStorage.setItem(key, newId);
     else localStorage.removeItem(key);
     setIdState(newId || "");
@@ -60,17 +79,21 @@ export function useCustomVideo(name) {
   return [id, setId];
 }
 
-let audioCtx = null;
-export function beep(enabled) {
+type WebkitWindow = Window & { webkitAudioContext?: typeof AudioContext };
+
+let audioCtx: AudioContext | null = null;
+export function beep(enabled: boolean): void {
   if (!enabled) return;
   try {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const Ctor = window.AudioContext || (window as WebkitWindow).webkitAudioContext;
+    if (!Ctor) return;
+    audioCtx = audioCtx || new Ctor();
     const o = audioCtx.createOscillator();
     const g = audioCtx.createGain();
     o.frequency.value = 880; o.type = "sine"; g.gain.value = 0.15;
     o.connect(g); g.connect(audioCtx.destination);
     o.start();
     o.stop(audioCtx.currentTime + 0.25);
-    try { navigator.vibrate && navigator.vibrate(150); } catch {}
-  } catch {}
+    try { navigator.vibrate?.(150); } catch { /* noop */ }
+  } catch { /* noop */ }
 }

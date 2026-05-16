@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { SESSIONS } from "./data.js";
-import { usePrefs } from "./hooks.js";
-import Home from "./components/Home.jsx";
-import Session from "./components/Session.jsx";
-import Summary from "./components/Summary.jsx";
-import Settings from "./components/Settings.jsx";
+import { SESSIONS, type SessionKey } from "./data";
+import { usePrefs } from "./hooks";
+import Home from "./components/Home";
+import Session from "./components/Session";
+import Summary, { type SessionStats } from "./components/Summary";
+import Settings from "./components/Settings";
+
+type View = "home" | "session" | "summary";
 
 export default function App() {
-  const [view, setView] = useState("home");
-  const [sessionKey, setSessionKey] = useState(null);
-  const [stats, setStats] = useState(null);
+  const [view, setView] = useState<View>("home");
+  const [sessionKey, setSessionKey] = useState<SessionKey | null>(null);
+  const [stats, setStats] = useState<SessionStats | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [prefs, setPrefs] = usePrefs();
 
-  const startSession = (key) => { setSessionKey(key); setView("session"); };
-  const finishSession = (s) => { setStats(s); setView("summary"); };
+  const startSession = (key: SessionKey) => { setSessionKey(key); setView("session"); };
+  const finishSession = (s: SessionStats) => { setStats(s); setView("summary"); };
   const goHome = () => { setSessionKey(null); setStats(null); setView("home"); };
 
   const handleBack = () => {
@@ -26,7 +28,7 @@ export default function App() {
 
   const title =
     view === "home" ? "Weight Training for Birdie" :
-    view === "session" ? SESSIONS[sessionKey].title :
+    view === "session" && sessionKey ? SESSIONS[sessionKey].title :
     "Complete";
 
   return (
@@ -59,7 +61,7 @@ export default function App() {
 
       <main className="flex-1 w-full max-w-3xl mx-auto px-4 py-3 md:px-8 md:py-8">
         {view === "home" && <Home onPick={startSession} />}
-        {view === "session" && (
+        {view === "session" && sessionKey && (
           <Session sessionKey={sessionKey} prefs={prefs} onFinish={finishSession} />
         )}
         {view === "summary" && <Summary stats={stats} onHome={goHome} />}

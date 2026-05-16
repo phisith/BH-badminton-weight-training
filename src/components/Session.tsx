@@ -1,10 +1,18 @@
 import { useMemo, useState } from "react";
-import { SESSIONS } from "../data.js";
-import TimedStep from "./TimedStep.jsx";
-import BlockStep from "./BlockStep.jsx";
-import ExerciseStep from "./ExerciseStep.jsx";
+import { SESSIONS, type SessionKey } from "../data";
+import type { Prefs } from "../hooks";
+import type { SessionStats } from "./Summary";
+import TimedStep from "./TimedStep";
+import BlockStep from "./BlockStep";
+import ExerciseStep from "./ExerciseStep";
 
-export default function Session({ sessionKey, prefs, onFinish }) {
+type SessionProps = {
+  sessionKey: SessionKey;
+  prefs: Prefs;
+  onFinish: (stats: SessionStats) => void;
+};
+
+export default function Session({ sessionKey, prefs, onFinish }: SessionProps) {
   const session = SESSIONS[sessionKey];
   const steps = session.steps;
 

@@ -1,8 +1,52 @@
-function ex(name, equipment, sets, cue, target) {
+export type Target = {
+  reps?: number;
+  duration?: number;
+  eachSide?: boolean;
+  note?: string;
+};
+
+export type ExerciseStep = {
+  type: "exercise";
+  name: string;
+  equipment: string;
+  sets: number;
+  cue: string;
+  target: Target;
+};
+
+export type TimedStep = {
+  type: "warmup" | "cooldown";
+  name: string;
+  duration: number;
+  items: string[];
+  cue: string;
+};
+
+export type BlockStep = {
+  type: "block";
+  name: string;
+};
+
+export type Step = ExerciseStep | TimedStep | BlockStep;
+
+export type Session = {
+  title: string;
+  steps: Step[];
+};
+
+export type SessionKey = "wed" | "sat";
+
+function ex(
+  name: string,
+  equipment: string,
+  sets: number,
+  cue: string,
+  target: Target
+): ExerciseStep {
   return { type: "exercise", name, equipment, sets, cue, target };
 }
 
-export const SESSIONS = {
+export const SESSIONS: Record<SessionKey, Session> = {
   wed: {
     title: "Wednesday — Upper & Core",
     steps: [
@@ -82,13 +126,13 @@ export const SESSIONS = {
   }
 };
 
-export function fmtTime(s) {
+export function fmtTime(s: number): string {
   const m = Math.floor(s / 60);
   const r = s % 60;
   return `${m}:${String(r).padStart(2, "0")}`;
 }
 
-export function extractYouTubeId(s) {
+export function extractYouTubeId(s: string): string {
   if (!s) return "";
   const m1 = s.match(/(?:v=|youtu\.be\/|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/);
   if (m1) return m1[1];

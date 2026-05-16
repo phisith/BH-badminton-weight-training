@@ -1,4 +1,8 @@
-export default function BlockStep({ step }) {
+import type { BlockStep as BlockStepType } from "../data";
+
+type BlockStepProps = { step: BlockStepType };
+
+export default function BlockStep({ step }: BlockStepProps) {
   return (
     <div className="py-6 text-center space-y-4">
       <div className="mx-auto h-14 w-14 rounded-full bg-gradient-to-br from-(--color-accent) to-(--color-yellow) flex items-center justify-center text-2xl shadow-[0_10px_30px_-10px_rgba(255,138,138,0.6)]">

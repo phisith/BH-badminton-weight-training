@@ -1,4 +1,15 @@
-export default function Summary({ stats, onHome }) {
+export type SessionStats = {
+  title: string;
+  totalSets: number;
+  mins: number;
+};
+
+type SummaryProps = {
+  stats: SessionStats | null;
+  onHome: () => void;
+};
+
+export default function Summary({ stats, onHome }: SummaryProps) {
   return (
     <section className="text-center py-10 space-y-5">
       <div className="mx-auto h-24 w-24 rounded-full bg-gradient-to-br from-(--color-accent) via-(--color-yellow) to-(--color-accent-2) flex items-center justify-center text-5xl text-white shadow-[0_18px_42px_-12px_rgba(255,138,138,0.55)]">
