@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07091a;
+  --color-bg-2: #0d1226;
+  --color-surface: #131a35;
+  --color-surface-2: #1c2447;
+  --color-border: #2a335a;
+  --color-text: #e8edf7;
+  --color-muted: #8a97bc;
+  --color-accent: #5b8cff;
+  --color-accent-2: #22d3a0;
+  --color-warn: #ffb84d;
+  --color-danger: #ff6b6b;
+
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 30px rgba(91, 140, 255, 0.18);
+}
+
+@layer base {
+  html, body, #root {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(91, 140, 255, 0.15), transparent 60%),
+      radial-gradient(900px 500px at -10% 20%, rgba(34, 211, 160, 0.10), transparent 60%),
+      var(--color-bg);
+    color: var(--color-text);
+    min-height: 100dvh;
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; opacity: 0.4; }
+
+  dialog::backdrop {
+    background: rgba(3, 6, 18, 0.7);
+    backdrop-filter: blur(4px);
+  }
+  dialog {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--color-text);
+    max-width: 92vw;
+  }
+}
+
+.btn-primary,
+.btn-ghost,
+.btn-warn,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: filter 0.1s, background-color 0.1s;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  color: white;
+  background-image: linear-gradient(135deg, var(--color-accent) 0%, #7aa1ff 100%);
+  box-shadow: 0 8px 24px -10px rgba(91, 140, 255, 0.7);
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+  text-decoration: none;
+}
+.btn-ghost:hover { background: var(--color-surface-2); }
+.btn-warn {
+  color: #1a1300;
+  background: var(--color-warn);
+}
+.btn-danger {
+  color: white;
+  background: var(--color-danger);
+}
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 92%, white 8%), var(--color-surface));
+  box-shadow: var(--shadow-card);
+}
+
+.kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.cue {
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  background: color-mix(in srgb, var(--color-accent-2) 12%, transparent);
+  border-left: 3px solid var(--color-accent-2);
+}
+
+.timer-digits {
+  font-variant-numeric: tabular-nums;
+  font-size: 4.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(180deg, #fff 30%, color-mix(in srgb, var(--color-accent) 60%, white));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (min-width: 768px) {
+  .timer-digits { font-size: 6rem; }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #f4f6fc;
+    --color-bg-2: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-2: #eef2fa;
+    --color-border: #dde4f1;
+    --color-text: #0f172a;
+    --color-muted: #5a6783;
+  }
+  .timer-digits {
+    background: linear-gradient(180deg, #0f172a 30%, var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
