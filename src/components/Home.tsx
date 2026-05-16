@@ -18,7 +18,7 @@ export default function Home({ onPick }: HomeProps) {
         <SessionCard
           day="Saturday"
           name="Legs & Hardware"
-          meta="10 exercises · ~60 min"
+          meta="11 exercises · ~60 min"
           tint="mint"
           onClick={() => onPick("sat")}
         />

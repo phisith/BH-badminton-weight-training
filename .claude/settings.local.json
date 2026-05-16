@@ -5,7 +5,8 @@
       "Bash(npm run *)",
       "Bash(npm ls *)",
       "Read(//Users/beckham-nimble/Documents/**)",
-      "Bash(mv BH-badminton-weight-training weight-training-for-birdie)"
+      "Bash(mv BH-badminton-weight-training weight-training-for-birdie)",
+      "Bash(npx tsc *)"
     ]
   }
 }

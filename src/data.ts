@@ -112,6 +112,7 @@ export const SESSIONS: Record<SessionKey, Session> = {
       ex("Calf Raises", "2kg DB (double)", 3, "Full range. All the way up and all the way down.", { reps: 15 }),
       ex("KB Romanian Deadlift", "5kg KB", 3, "Slight bend in knee, hinge at hip, feel hamstring stretch.", { reps: 10, eachSide: true }),
       ex("Side Lunge", "Bodyweight", 3, "Keep chest up, push knee out over toes.", { reps: 10, eachSide: true }),
+      ex("Reverse Lunge", "Bodyweight", 3, "Step back, lower knee toward floor, drive front foot to return.", { reps: 10, eachSide: true }),
       { type: "block", name: "Block 3: Badminton-Specific" },
       ex("Shadow Badminton", "2kg DB (double)", 3, "Replicate real court movement patterns.", { duration: 45 }),
       ex("Banded Lateral Walk", "Band", 3, "Keep band taut, stay low in athletic stance.", { reps: 10, eachSide: true }),
